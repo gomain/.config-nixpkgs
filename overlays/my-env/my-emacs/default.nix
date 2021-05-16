@@ -1,9 +1,9 @@
 { emacs, emacsPackagesNgGen }:
 let
   emacsWithPackages = (emacsPackagesNgGen emacs).emacsWithPackages;
-  myEmacsPackages = epkgs: with epkgs;
-    (with elpaPackages; [ ace-window ])
-    ++ (with melpaStablePackages; [
+  myEmacsPackages = epkgs:
+    with epkgs;
+    (with elpaPackages; [ ace-window ]) ++ (with melpaStablePackages; [
       auto-complete
       company
       edit-server
@@ -15,13 +15,19 @@ let
       sudo-edit
       tide
       typescript-mode
+      unisonlang-mode
       web-mode
       yaml-mode
     ]) ++ (with melpaPackages; [
-      flycheck
-      purescript-mode
-      psc-ide
       dhall-mode
+      flycheck
+      psc-ide
+      psci
+      purescript-mode
+      repl-toggle
+      rustic
+      slime # mode for Lisp
+      lsp-mode
     ]) ++ [ ];
   myEmacsWithPackages = emacsWithPackages myEmacsPackages;
 
@@ -39,4 +45,4 @@ let
     #  '';
     #in oldAttrs.buildCommand + extraCommand;
   };
- in myEmacsWithPackages.overrideAttrs overrides
+in myEmacsWithPackages.overrideAttrs overrides
